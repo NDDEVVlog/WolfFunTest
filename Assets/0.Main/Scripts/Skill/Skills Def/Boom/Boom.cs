@@ -54,6 +54,8 @@ public class Boom : MonoBehaviour, IPoolObject
         _isTriggered = false;
         _rigidbody.isKinematic = false;
         _rigidbody.linearVelocity = Vector3.zero;
+        _meshRenderer = GetComponent<Renderer>();
+        _rigidbody = GetComponent<Rigidbody>();
         
         if (outlineImageUI != null) outlineImageUI.enabled = false;
         UpdateMaterialProgress(0);

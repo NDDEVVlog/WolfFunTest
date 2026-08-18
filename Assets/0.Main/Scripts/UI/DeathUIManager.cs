@@ -7,12 +7,7 @@ public class DeathUIManager : MonoBehaviour
 {
     [SerializeField] private Button _retryButton;
     
-    private CanvasGroup _canvasGroup;
-
-    private void Awake()
-    {
-        _canvasGroup = GetComponent<CanvasGroup>();
-    }
+    [SerializeField] private CanvasGroup _canvasGroup;
 
     private void OnEnable()
     {
