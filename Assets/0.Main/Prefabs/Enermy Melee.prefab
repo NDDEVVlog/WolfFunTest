@@ -759,6 +759,14 @@ MonoBehaviour:
   _botAnim: {fileID: 1091113173756470475}
   _healthController: {fileID: 3102397693772973460}
   _despawnDelay: 2.5
+  _stateMachine:
+    rid: 6453310130476548169
+  references:
+    version: 2
+    RefIds:
+    - rid: 6453310130476548169
+      type: {class: MeleeStateMachine, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!114 &3102397693772973460
 MonoBehaviour:
   m_ObjectHideFlags: 0

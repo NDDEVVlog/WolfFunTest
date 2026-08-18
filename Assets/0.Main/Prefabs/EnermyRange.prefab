@@ -607,6 +607,14 @@ MonoBehaviour:
   _botAnim: {fileID: 0}
   _healthController: {fileID: 3253715611734106147}
   _despawnDelay: 2.5
+  _stateMachine:
+    rid: 6453310130476548170
+  references:
+    version: 2
+    RefIds:
+    - rid: 6453310130476548170
+      type: {class: RangeStateMachine, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!114 &3253715611734106147
 MonoBehaviour:
   m_ObjectHideFlags: 0

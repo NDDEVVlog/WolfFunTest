@@ -9,6 +9,7 @@ public class Skill_Dash : BaseSkill
     [SerializeField] private float _explosionRadius = 3f;
     [SerializeField] private LineRenderer _dashLineRenderer;
     [SerializeField] private GameObject _explosionParticle;
+    [SerializeField] private float _cameraTrauma;
 
     private readonly Collider[] _hitColliders = new Collider[20];
     private IDashable _movementController;
@@ -92,7 +93,7 @@ public class Skill_Dash : BaseSkill
                 target.TakeDamage(finalDamage, Caster);
             }
         }
-        EventBus<CameraShakeEvent>.Raise(new CameraShakeEvent { TraumaAmount = 0.6f });
+        EventBus<CameraShakeEvent>.Raise(new CameraShakeEvent { TraumaAmount = _cameraTrauma });
         SpawnExplosionParticle();
     }
 

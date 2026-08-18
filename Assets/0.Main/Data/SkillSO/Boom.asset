@@ -15,6 +15,5 @@ MonoBehaviour:
   SkillName: Boom
   SkillIcon: {fileID: 21300000, guid: 7af3f4e2fa485a142ae0eae06f40a3ae, type: 3}
   Cooldown: 12
-  BaseDamage: 500
-  DamageMultiplier: 2
+  BaseDamage: 50
   Range: 5

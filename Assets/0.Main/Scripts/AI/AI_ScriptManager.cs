@@ -13,11 +13,12 @@ public class AI_ScriptManager : MonoBehaviour, IPoolObject
     [SerializeField] private HealthController _healthController;
     [SerializeField] private float _despawnDelay = 2.5f;
     
+    [SerializeReference] private StateMachine _stateMachine;
+    
     private NavMeshAgent _navAgent;
     private Rigidbody _rb;
     private CapsuleCollider _collider;
     private Transform _playerTransform;
-    private StateMachine _stateMachine;
     private IObjectPool _pool;
     private CancellationTokenSource _cts;
 
@@ -33,7 +34,6 @@ public class AI_ScriptManager : MonoBehaviour, IPoolObject
         _navAgent = GetComponent<NavMeshAgent>();
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<CapsuleCollider>();
-        _stateMachine = new StateMachine();
         
         _rb.isKinematic = true;
         _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -66,7 +66,7 @@ public class AI_ScriptManager : MonoBehaviour, IPoolObject
 
     private void Update()
     {
-        if (_healthController.CurrentHealth <= 0 || !_navAgent.enabled) return;
+        if (_healthController.CurrentHealth <= 0 || !_navAgent.enabled || _stateMachine == null) return;
         _stateMachine.Update();
     }
 
@@ -97,9 +97,9 @@ public class AI_ScriptManager : MonoBehaviour, IPoolObject
         _collider.enabled = true;
         _navAgent.enabled = true;
         
-        if (_playerTransform != null)
+        if (_playerTransform != null && _stateMachine != null)
         {
-            ChangeState(new ChaseState(this));
+            _stateMachine.Initialize(this);
         }
     }
 
@@ -107,7 +107,7 @@ public class AI_ScriptManager : MonoBehaviour, IPoolObject
     {
         CancelTask();
         
-        _stateMachine.ChangeState(null);
+        _stateMachine?.Stop();
         
         if (_navAgent != null && _navAgent.isOnNavMesh)
         {
@@ -119,7 +119,7 @@ public class AI_ScriptManager : MonoBehaviour, IPoolObject
 
     public void ChangeState(IState newState)
     {
-        if (_healthController.CurrentHealth <= 0) return;
+        if (_healthController.CurrentHealth <= 0 || _stateMachine == null) return;
         _stateMachine.ChangeState(newState);
     }
 
@@ -130,7 +130,7 @@ public class AI_ScriptManager : MonoBehaviour, IPoolObject
             _botAnim.Die();
         }
 
-        _stateMachine.ChangeState(null);
+        _stateMachine?.Stop();
 
         if (_navAgent != null && _navAgent.isOnNavMesh)
         {
@@ -139,7 +139,7 @@ public class AI_ScriptManager : MonoBehaviour, IPoolObject
         _navAgent.enabled = false;
         _collider.enabled = false;
         
-        EventBus<EnemyDeathEvent>.Raise(new EnemyDeathEvent { ExpGranted = 1000f });
+        EventBus<EnemyDeathEvent>.Raise(new EnemyDeathEvent { ExpGranted = Stats.ExpFromNPC });
         ReturnToPoolAsync(_cts.Token).Forget();
     }
 
