@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0623042d78e104b4885a45c06e3cbe6c, type: 3}
+  m_Name: WaveConfig
+  m_EditorClassIdentifier: Assembly-CSharp::WaveConfigSO
+  BotWaves:
+  - BotPrefab: {fileID: 7905204895622284991, guid: ec82e55a91793dd4389f4b024dc9b16a, type: 3}
+    MinInWave: 3
+    MaxInWave: 4
+  - BotPrefab: {fileID: 5414234179593891192, guid: cc480ce368fc0c147a599f3eedebfc91, type: 3}
+    MinInWave: 1
+    MaxInWave: 2
